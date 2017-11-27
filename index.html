@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Real Time Chat with node and Socket.io</title>
+
+
+	<style media="screen">
+		#zone_chat strong {
+			color: white;
+			background-color: black;
+			padding: 2px;
+		}
+	</style>
+</head>
+
+<body>
+	<h1> Real-time Super Chat!
+		</h1>
+
+	<form action="/" method="post" id="chat_form">
+		<input type="text" name="message" id="message" placeholder="Your message..." size="50" autofocus />
+		<input type="submit" name="Send_message" value="Send" />
+	</form>
+
+	<section id="chat_zone"></section>
+
+
+
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+
+
+	<script>
+		// connecting to socket.io
+		var socket = io.connect('http://localhost:9000');
+
+		// Get a username and display it in the title
+		var username = prompt("Enter a username: ");
+		socket.emit('new_client', username);
+		document.title = username + ' - ' + document.title;
+
+
+		// when a message is received it's displayed
+		socket.on('message', function(data) {
+			insertMessage(data, username, data.message);
+		});
+
+		// when a new client connects, the info is displayed
+		socket.on('new_client', function(username) {
+			$('#chat_zone').prepend('<p><em>' + username + ' has joined the chat. </em></p>');
+		});
+
+
+		// when the form is sent, the message is send and displayed on the page
+
+		$('#chat_form').submit(function() {
+			// set the message the message from the form.
+			var message = $('#message').val();
+			// send the message to others
+			socket.emit('message', message);
+			//display the message on the page
+			insertMessage(username, message);
+			//empties the chat form and puts the focus back
+			$('#message').val('').focus();
+
+			//block the regular effect of the form refresh
+			return false;
+		});
+
+		// adds a message to the page
+		function insertMessage(username, message) {
+			$('#chat_zone').prepend('<p><strong>' + username + '</strong> ' + message + '</p>')
+		};
+	
+	</script>
+
+</body>
+
+</html>

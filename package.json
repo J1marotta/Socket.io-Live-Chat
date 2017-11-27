@@ -1,0 +1,13 @@
+{
+  "name": "SocketChat",
+  "version": "0.1.0",
+  "description": "Practice with Node and Socket.io",
+  "main": "app.js",
+  "author": "James Marotta",
+  "license": "MIT",
+  "dependencies": {
+    "ent": "^2.2.0",
+    "express": "^4.16.2",
+    "socket.io": "^2.0.4"
+  }
+}
