@@ -44,7 +44,7 @@
 
 		// when a message is received it's displayed
 		socket.on('message', function(data) {
-			insertMessage(data, username, data.message);
+			insertMessage(data.username, data.message);
 		});
 
 		// when a new client connects, the info is displayed
@@ -73,7 +73,7 @@
 		function insertMessage(username, message) {
 			$('#chat_zone').prepend('<p><strong>' + username + '</strong> ' + message + '</p>')
 		};
-	
+
 	</script>
 
 </body>
