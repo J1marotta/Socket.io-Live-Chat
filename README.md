@@ -2,7 +2,7 @@ Node Practice with Socket.IO
 
 Basic Real Time chat application using Socket.io and Node.js
 
-![Chat](/Users/Titan/sites/js/socketChat/Chat.png)
+![Chat](/Chat.png)
 Two users chatting, done with one incognito window.
 
 
